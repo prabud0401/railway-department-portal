@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
+import { Form, Modal, Button } from 'react-bootstrap'; 
 import '../css/login.css'; 
 import '../css/body.css'; 
-import { Form } from 'react-bootstrap'; 
 import trainLogo from '../assets/train-logo.png';
 import { validateForm } from './validation';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const navigate = useNavigate();
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -17,7 +21,7 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validate the form
@@ -28,15 +32,33 @@ const Login = () => {
       return;
     }
 
-    // Proceed with login logic
-    // Example:
-    console.log('Username:', username);
-    console.log('Password:', password);
+    try {
+      // Send a POST request to the login API
+      const response = await axios.post('http://localhost:5000/login', { username, password });
+      console.log(response.data); // Log the response from the server
 
-    // Clear input fields
-    setUsername('');
-    setPassword('');
+      // Show the success modal
+      setShowSuccessModal(true);
+
+      // Clear input fields
+      setUsername('');
+      setPassword('');
+    } catch (error) {
+      console.error('Error logging in:', error);
+    }
   };
+
+  const SuccessModal = () => (
+    <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
+      <Modal.Header closeButton>
+        <Modal.Title>Success</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>Login successful</Modal.Body>
+      <Modal.Footer>
+        <Button variant="primary" onClick={() => navigate(`/home?username=${username}`)}>Go to Home</Button>
+      </Modal.Footer>
+    </Modal>
+  );
 
   return (
     <body>
@@ -81,6 +103,7 @@ const Login = () => {
           <a href="#">Forget password?</a> or <a href="Signup">Sign up</a>
         </div>
       </div>
+      <SuccessModal />
     </body>
   );
 };

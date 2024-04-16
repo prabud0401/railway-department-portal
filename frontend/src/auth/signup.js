@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Form } from 'react-bootstrap'; 
+import { Form, Modal, Button } from 'react-bootstrap'; 
 import '../css/signup.css'; 
 import '../css/body.css'; 
 import trainLogo from '../assets/train-logo.png';
 import { validateForm } from './validation';
-
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -18,32 +19,55 @@ const Signup = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = validateForm(formData);
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      // Proceed with signup logic
-      console.log('Form submitted:', formData);
-      // Clear form inputs
-      setFormData({
-        nicOrPassport: '',
-        phoneNumber: '',
-        email: '',
-        fullName: '',
-        username: '',
-        password: '',
-        confirmPassword: ''
-      });
+      try {
+        // Send a POST request to the signup API
+        const response = await axios.post('http://localhost:5000/signup', formData);
+        console.log(response.data); // Log the response from the server
+
+        // Show the success modal
+        setShowSuccessModal(true);
+
+        // Clear form inputs
+        setFormData({
+          nicOrPassport: '',
+          phoneNumber: '',
+          email: '',
+          fullName: '',
+          username: '',
+          password: '',
+          confirmPassword: ''
+        });
+      } catch (error) {
+        console.error('Error signing up:', error);
+      }
     }
   };
+
+  const SuccessModal = () => (
+    <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
+      <Modal.Header closeButton>
+        <Modal.Title>Success</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>Your account has been created successfully.</Modal.Body>
+      <Modal.Footer>
+        <Button variant="primary" onClick={() => navigate('/login')}>Go to Login</Button>
+      </Modal.Footer>
+    </Modal>
+  );
 
   return (
     <body>
@@ -145,6 +169,7 @@ const Signup = () => {
           <a href="#">Forget password?</a> or <a href="Login">Sign in</a>
         </div>
       </div>
+      <SuccessModal />
     </body>
   );
 };
