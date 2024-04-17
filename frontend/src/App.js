@@ -2,8 +2,11 @@ import React from "react";
 import { BrowserRouter , Routes, Route } from "react-router-dom";
 import Login from "./auth/login";
 import Signup from "./auth/signup";
-
+import Admin from "./admin/admin";
 import Home from "./home/home";
+import AddTrain from "./admin/addTrain";
+import UpdateTrain from "./admin/UpdateTrain";
+
 function App() {
   return (
     <BrowserRouter>
@@ -12,6 +15,9 @@ function App() {
           <Route path="/login" element={<Login />} ></Route>
           <Route path="/signup" element={<Signup />} ></Route>
           <Route path="/home" element={<Home />} ></Route>
+          <Route path="/admin" element={<Admin />} ></Route>
+          <Route path="/addTrain" element={<AddTrain />} ></Route>
+          <Route path="/updateTrain" element={<UpdateTrain />} ></Route>
         </Routes>
       </div>
     </BrowserRouter>

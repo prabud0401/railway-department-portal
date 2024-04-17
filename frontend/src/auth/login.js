@@ -55,7 +55,7 @@ const Login = () => {
       </Modal.Header>
       <Modal.Body>Login successful</Modal.Body>
       <Modal.Footer>
-        <Button variant="primary" onClick={() => navigate(`/home?username=${username}`)}>Go to Home</Button>
+        <Button variant="primary" onClick={() => navigate(`/admin?username=${username}`)}>Go to Home</Button>
       </Modal.Footer>
     </Modal>
   );
