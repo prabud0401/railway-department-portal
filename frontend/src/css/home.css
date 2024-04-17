@@ -1,10 +1,13 @@
-/* body {
-    background-image: linear-gradient(to right top,#D91B23,#124FEB);
-    height: 100vh;
+body {
+    background-image: url('../assets/background-image.jpg'); 
+    background-size: cover;
+    background-position: center;
     display: flex;
-    justify-content: center;
-    align-items: center
-} */
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+}
 .home-container {
     padding: 20px;
   }

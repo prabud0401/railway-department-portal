@@ -10,13 +10,14 @@
 }
 
 body {
-    background-image: url('../assets/background-image.jpg'); /* Replace 'your-background-image.jpg' with your image file path */
+    background-image: url('../assets/background-image.jpg'); 
     background-size: cover;
     background-position: center;
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    height: 100vh; /* Ensure body covers entire viewport */
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
 }
 
 .logo {

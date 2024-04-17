@@ -6,6 +6,8 @@ import Admin from "./admin/admin";
 import Home from "./home/home";
 import AddTrain from "./admin/addTrain";
 import UpdateTrain from "./admin/UpdateTrain";
+import Booking from "./booking/booking";
+
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
           <Route path="/admin" element={<Admin />} ></Route>
           <Route path="/addTrain" element={<AddTrain />} ></Route>
           <Route path="/updateTrain" element={<UpdateTrain />} ></Route>
+          <Route path="/booking" element={<Booking />} ></Route>
         </Routes>
       </div>
     </BrowserRouter>

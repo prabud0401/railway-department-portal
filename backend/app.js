@@ -3,11 +3,11 @@ const express = require('express');
 const cors = require('cors');
 const signupRouter = require('./Api/signupApi');
 const loginRouter = require('./Api/loginApi');
-const db = require('./db');
 const trainRouter = require('./Api/trainApi');
+const bookingRouter = require('./Api/bookingApi');
 const mysql = require('mysql');
 
-
+const db = require('./db');
 // Create an Express application
 const app = express();
 
@@ -21,6 +21,7 @@ app.use(express.json());
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/train', trainRouter);
+app.use('/booking', bookingRouter);
 
 
 // Set up a route to handle GET requests to the root URL

@@ -5,6 +5,7 @@ const signupRouter = require('./Api/signupApi');
 const loginRouter = require('./Api/loginApi');
 const trainRouter = require('./Api/trainApi');
 const trainsListRouter = require('./Api/trainsList');
+const bookingRouter = require('./Api/bookingApi');
 const app = express();
 
 app.use(cors());
@@ -29,6 +30,7 @@ app.use('/login', loginRouter);
 
 app.use('/train', trainRouter);
 app.use('/trainList', trainsListRouter);
+app.use('/booking', bookingRouter);
 
 // Define your routes here
 
